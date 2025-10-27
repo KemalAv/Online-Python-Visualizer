@@ -1,5 +1,6 @@
 import React from 'react';
 import { PlayIcon } from './icons/PlayIcon.tsx';
+import { TrashIcon } from './icons/TrashIcon.tsx';
 
 interface CodeEditorProps {
   code: string;
@@ -28,14 +29,25 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, setCode, onVisualize, isL
     <div className="flex flex-col bg-gray-50 border-2 border-t-white border-l-white border-r-gray-400 border-b-gray-400 rounded-md shadow-lg h-full min-h-[40vh] md:min-h-[400px]">
       <div className="flex-shrink-0 p-2 border-b-2 border-gray-400 flex justify-between items-center bg-gradient-to-b from-gray-300 to-gray-200 rounded-t-sm">
         <h2 className="text-lg font-bold text-gray-800">Python Code</h2>
-        <button
-          onClick={onVisualize}
-          className="flex items-center justify-center gap-2 px-5 py-1 font-bold text-white bg-blue-600 border-2 border-blue-800 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none transition-all duration-200 transform hover:scale-105 disabled:opacity-60 disabled:cursor-wait disabled:transform-none"
-          disabled={isLoading}
-        >
-          <PlayIcon className="w-5 h-5" />
-          {isLoading ? loadingText : 'Visualize'}
-        </button>
+        <div className="flex items-center gap-2">
+           <button
+            onClick={() => setCode('')}
+            title="Clear code"
+            className="flex items-center justify-center p-2 font-bold text-white bg-gray-500 border-2 border-gray-700 rounded-md shadow-lg hover:bg-gray-600 focus:outline-none transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            disabled={isLoading || !code.trim()}
+            aria-label="Clear code editor"
+          >
+            <TrashIcon className="w-5 h-5" />
+          </button>
+          <button
+            onClick={onVisualize}
+            className="flex items-center justify-center gap-2 px-5 py-1 font-bold text-white bg-blue-600 border-2 border-blue-800 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none transition-all duration-200 transform hover:scale-105 disabled:opacity-60 disabled:cursor-wait disabled:transform-none"
+            disabled={isLoading}
+          >
+            <PlayIcon className="w-5 h-5" />
+            {isLoading ? loadingText : 'Visualize'}
+          </button>
+        </div>
       </div>
       <div className="flex-grow p-1 bg-white">
         <textarea
